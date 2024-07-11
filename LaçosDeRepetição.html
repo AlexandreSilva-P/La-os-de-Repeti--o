@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios de JavaScript</title>
+</head>
+
+<body>
+    <h1>Exercícios de JavaScript</h1>
+
+    <!-- Botão para o exercício 1: Maior e Menor -->
+    <button onclick="executarMaiorMenor()">Maior e Menor</button>
+
+    <!-- Botão para o exercício 2: Média da Turma -->
+    <button onclick="executarMediaTurma()">Média da Turma</button>
+
+    <!-- Botão para o exercício 3: Números Ímpares -->
+    <button onclick="executarNumerosImpares()">Números Ímpares</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        // Função para o exercício 1: Maior e Menor
+        function executarMaiorMenor() {
+            var resultado = document.getElementById("resultado");
+            var maior = -Infinity;
+            var menor = Infinity;
+
+            for (var i = 1; i <= 20; i++) {
+                var numero = parseInt(prompt("Digite um número"));
+                if (!isNaN(numero)) {
+                    if (numero > maior) {
+                        maior = numero;
+                    }
+                    if (numero < menor) {
+                        menor = numero;
+                    }
+                } else {
+                    alert("Por favor, digite apenas números válidos.");
+                    return;
+                }
+            }
+            resultado.innerHTML = "O maior número é: " + maior + ". E o menor número é: " + menor + ".";
+        }
+
+        // Função para o exercício 2: Média da Turma
+        function executarMediaTurma() {
+            var resultado = document.getElementById("resultado");
+            var resposta = "";
+            var mediasPonderadas = [];
+            // [] é uma array(conjunto de strings).
+            for (var aluno = 1; aluno <= 20; aluno++) {
+                //for é uma estrutura de repetição.
+                var nota1 = parseFloat(prompt(`Digite a primeira nota do aluno ${aluno}: `));
+                var nota2 = parseFloat(prompt(`Digite a segunda nota do aluno ${aluno}: `));
+                var nota3 = parseFloat(prompt(`Digite a terceira nota do aluno ${aluno}: `));
+                if (!isNaN(nota1) && !isNaN(nota2) && !isNaN(nota3)) {
+                    //isNaN é "não é um número" (é uma validação, ele vê se é um número).
+                    // '!' é responsável por fazer o "se é um número, tipo ao invés de caracter"
+                    var mp = (nota1 * 2 + nota2 * 4 + nota3 * 3) / 9;
+                    //é nove pelo fato de que a soma de todos os pesos é  9.
+                    mediasPonderadas.push(mp);
+                    //push é responsável por empurrar para lista de alunos em 'mediasPonderadas = [];'
+                    resposta += `Média ponderada do aluno ${aluno} = ${mp.toFixed(2)} <br/>`;
+                } else {
+                    resposta += `Notas inválidas para o aluno ${aluno}.`;
+                }
+            }
+
+            if (mediasPonderadas.length > 0) {
+                //length é 'tamanho'
+                var somaMedias = mediasPonderadas.reduce((acumulador, valorAtual) => acumulador + valorAtual, 0);
+                /*acumulador é responsável por acumular/guardar as medias ponderadas dos alunos, ele coloca cada aluno em uma 
+                posição começando no 0 nessa posição específica {aluno1, mp=6; aluno2, mp=5; aluno3, mp=3;[...], então será= acumulador=6
+                que é o primeiro = 6+5 = 11, com isso, o acumulador para de 0 passa a ser 11, e continua 
+                acumulador=11 , 11+3=14[...] e prossegue até a ultima posição que é 19.}*/
+                //reduce é responsável por soma o tem na lista.
+                var mediaGeral = somaMedias / mediasPonderadas.length;
+                resposta += "Média geral da turma: " + mediaGeral.toFixed(2);
+            } else {
+                resposta += "Não foi possível calcular a média da turma.";
+            }
+            resultado.innerHTML = resposta;
+        }
+
+        // Função para o exercício 3: Números Ímpares
+        function executarNumerosImpares() {
+            var resultado = document.getElementById("resultado");
+            var html = "";
+
+            for (var contador = 150; contador < 300; contador++) {
+                if (contador % 2 !== 0) {
+                    html += "<p>" + contador + "</p>";
+                }
+            }
+
+            resultado.innerHTML = html;
+        }
+
+    </script>
+</body>
+
+</html>
